@@ -436,3 +436,17 @@ bool UAdvancedSteamFriendsLibrary::IsSteamInBigPictureMode()
 
 	return false;
 }
+
+bool UAdvancedSteamFriendsLibrary::SetRichPresence(FString Key, FString Value)
+{
+#if STEAM_SDK_INSTALLED && (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX)
+
+	if (SteamAPI_Init())
+	{
+		return SteamFriends()->SetRichPresence(TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value));
+	}
+
+#endif
+
+	return false;
+}
